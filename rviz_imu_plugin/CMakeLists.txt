@@ -1,9 +1,8 @@
 cmake_minimum_required(VERSION 3.5.1)
 project(rviz_imu_plugin)
 
-# Default to C++14
 if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 14)
+  set(CMAKE_CXX_STANDARD 17)
 endif()
 
 find_package(ament_cmake REQUIRED COMPONENTS rviz)
@@ -20,11 +19,9 @@ find_package(tf2_ros REQUIRED)
 ## This setting causes Qt's "MOC" generation to happen automatically.
 set(CMAKE_AUTOMOC ON)
 
-
 ## I prefer the Qt signals and slots to avoid defining "emit", "slots",
 ## etc because they can conflict with boost signals, so define QT_NO_KEYWORDS here.
 add_definitions(-DQT_NO_KEYWORDS)
-
 
 include_directories(include)
 
@@ -41,12 +38,12 @@ set(dependencies
 
 ## Here we specify the list of source files.
 ## The generated MOC files are included automatically as headers.
-set(SRC_FILES  src/imu_display.cpp
-               src/imu_orientation_visual.cpp
-               src/imu_axes_visual.cpp
-               src/imu_acc_visual.cpp
-               src/mag_display.cpp
-               src/mag_visual.cpp)
+set(SRC_FILES src/imu_display.cpp
+              src/imu_orientation_visual.cpp
+              src/imu_axes_visual.cpp
+              src/imu_acc_visual.cpp
+              src/mag_display.cpp
+              src/mag_visual.cpp)
 
 ## Build libraries
 add_library(${PROJECT_NAME} SHARED ${SRC_FILES})

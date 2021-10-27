@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.5)
 project(imu_complementary_filter)
 
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 17)
+endif()
+
 find_package(rclcpp REQUIRED)
 find_package(message_filters REQUIRED)
 find_package(sensor_msgs REQUIRED)
@@ -8,12 +12,8 @@ find_package(std_msgs REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
 
+include_directories(include)
 
-include_directories(
-  include
-)
-
-## Declare a cpp library
 add_library(complementary_filter
   src/complementary_filter.cpp
   src/complementary_filter_ros.cpp
@@ -21,7 +21,6 @@ add_library(complementary_filter
   include/imu_complementary_filter/complementary_filter_ros.h
 )
 
-# create complementary_filter_node executable
 add_executable(complementary_filter_node
   src/complementary_filter_node.cpp)
 target_link_libraries(complementary_filter_node complementary_filter)
@@ -29,12 +28,10 @@ ament_target_dependencies(complementary_filter rclcpp message_filters sensor_msg
 
 install(TARGETS
         complementary_filter
-        DESTINATION lib/${PROJECT_NAME}
-)
+        DESTINATION lib/${PROJECT_NAME})
 install(TARGETS
         complementary_filter_node
-        DESTINATION lib/${PROJECT_NAME}
-)
+        DESTINATION lib/${PROJECT_NAME})
 
 ## Mark cpp header files for installation
 install(DIRECTORY include/${PROJECT_NAME}/
